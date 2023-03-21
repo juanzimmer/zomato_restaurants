@@ -195,7 +195,7 @@ with st.container():
 map = folium.Map([42 ,29], zoom_start=2,width="%100",height="%100")
 locations = list(zip(df.latitude, df.longitude))
 cluster = folium.plugins.MarkerCluster(locations=locations,                     
-               popups=df['city'].tolist())  
+               popups=df['restaurant_name'].tolist())  
 map.add_child(cluster)
 folium_static(map, width=1024, height=600)
 
