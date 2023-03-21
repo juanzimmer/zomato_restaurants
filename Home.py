@@ -79,6 +79,14 @@ COLORS = {
 def color_name(color_code):
     return COLORS[color_code]
 
+def plotagem_map(df):
+    map = folium.Map([42 ,29], zoom_start=2,width="%100",height="%100")
+    locations = list(zip(df.latitude, df.longitude))
+    cluster = folium.plugins.MarkerCluster(locations=locations,                     
+                popups=df['city'].tolist())  
+    map.add_child(cluster)
+    return map
+
 
 
 #TRATAMENTO DE DADOS ---------------------------------------------------------------------
@@ -192,11 +200,7 @@ with st.container():
         col5.metric('Tipos de culinária', df_aux)
 
 #2. PLOTANDO MAPA
-map = folium.Map([42 ,29], zoom_start=2,width="%100",height="%100")
-locations = list(zip(df.latitude, df.longitude))
-cluster = folium.plugins.MarkerCluster(locations=locations,                     
-               popups=df['restaurant_name'].tolist())  
-map.add_child(cluster)
+map = plotagem_map(df)
 folium_static(map, width=1024, height=600)
 
 st.markdown(
